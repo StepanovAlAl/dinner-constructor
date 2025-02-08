@@ -1,6 +1,6 @@
 package ru.practicum.dinner;
 
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -24,6 +24,8 @@ public class Main {
                     break;
                 case "3":
                     return;
+                default:
+                    System.out.println("Неизвестная команда. Пожалуйста, выберите снова.");
             }
         }
     }
@@ -42,6 +44,8 @@ public class Main {
         String dishName = scanner.nextLine();
 
         // добавьте новое блюдо
+        dc.addDish(dishType, dishName);
+        System.out.println("Блюдо добавлено.");
     }
 
     private static void generateDishCombo() {
@@ -52,14 +56,32 @@ public class Main {
         scanner.nextLine();
 
         System.out.println("Вводите типы блюда, разделяя символом переноса строки (enter). Для завершения ввода введите пустую строку");
-        String nextItem = scanner.nextLine();
-
-        //реализуйте ввод типов блюд
-        while (!nextItem.isEmpty()) {
-
+        List<String> types = new ArrayList<>();
+        while (true) {
+            String nextItem = scanner.nextLine();
+            if (nextItem.isEmpty()) {
+                break;
+            }
+            if (!dc.checkType(nextItem)) {
+                System.out.println("Тип блюда '" + nextItem + "' не существует. Пожалуйста, введите другой тип.");
+                continue;
+            }
+            types.add(nextItem);
         }
 
+        if (types.isEmpty()) {
+            System.out.println("Не введено ни одного типа блюда.");
+            return;
+        }
         // сгенерируйте комбинации блюд и выведите на экран
-
+        List<List<String>> combinations = dc.generateCombinations(numberOfCombos, types);
+        if (combinations.isEmpty()) {
+            System.out.println("Не удалось сгенерировать комбинации.");
+        } else {
+            System.out.println("Сгенерированные комбинации:");
+            for (List<String> combo : combinations) {
+                System.out.println(String.join(", ", combo));
+            }
+        }
     }
 }
