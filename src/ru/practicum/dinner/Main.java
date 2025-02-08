@@ -80,7 +80,7 @@ public class Main {
         } else {
             System.out.println("Сгенерированные комбинации:");
             for (List<String> combo : combinations) {
-                System.out.println(String.join(", ", combo));
+                System.out.println(combo);
             }
         }
     }

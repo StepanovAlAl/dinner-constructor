@@ -3,8 +3,8 @@ package ru.practicum.dinner;
 import java.util.*;
 
 public class DinnerConstructor {
-    private Map<String, List<String>> dishesByType;
-    private Random random;
+    private final Map<String, List<String>> dishesByType;
+    private final Random random;
 
     public DinnerConstructor() {
         dishesByType = new HashMap<>();
